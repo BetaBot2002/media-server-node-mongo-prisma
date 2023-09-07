@@ -5,8 +5,8 @@ import express from "express";
 const app=express();
 
 import cors from "cors";
-import { fileRouter } from "./Routes/uploads.route.js";
-import { userRouter } from "./Routes/login.route.js";
+import { fileRouter } from "./Routes/upload.route.js";
+import { userRouter } from "./Routes/user.route.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
