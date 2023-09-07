@@ -1,7 +1,12 @@
 import { findSingleUser } from "../Database/user.db.queries.js"
 const login=async (req,res)=>{
     const {email,password} = req.body
-    res.send(await findSingleUser(email,password)==null)
+    const user=await findSingleUser(email,password)
+    if(!user){
+        res.status(404).send({
+            message:`NOT FOUND`
+        })
+    }
 }
 
 export {
