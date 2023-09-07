@@ -5,7 +5,8 @@ import express from "express";
 const app=express();
 
 import cors from "cors";
-import { router } from "./Routes/uploads.route.js";
+import { fileRouter } from "./Routes/uploads.route.js";
+import { userRouter } from "./Routes/login.route.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -19,7 +20,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static(__dirname+"/Public"))
 
-app.use(router)
+app.use('/upload',fileRouter)
+app.use('/user',userRouter)
 app.listen(PORT,()=>{
     console.log(`http://127.0.0.1:${PORT}`)
 })
