@@ -1,8 +1,14 @@
 import multer from "multer";
+const fileTypeToFolderMap={
+    image:`Images`,
+    video:`Videos`,
+    audio:`Audios`
+}
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         let fileType=file.mimetype.split('/')[0]
-        let filePath=fileType==='image'?`./Public/Uploads/Images`:fileType==='video'?`./Public/Uploads/Videos`:`./Public/Uploads/Others`
+        let rootFolder=`./Public/Uploads/`
+        let filePath=rootFolder+`${fileTypeToFolderMap[fileType] || `Others`}`
         cb(null, filePath)
     },
     filename: function (req, file, cb) {
