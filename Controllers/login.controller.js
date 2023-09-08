@@ -1,4 +1,5 @@
 import { findSingleUser } from "../Database/user.db.queries.js"
+import { signUser } from "../Middleware/apikeyauth.jwt.js"
 const login=async (req,res)=>{
     const {email,password} = req.body
     const user=await findSingleUser(email,password)
@@ -7,7 +8,12 @@ const login=async (req,res)=>{
             message:`NOT FOUND`
         })
     }else{
-        res.status(200).send(user)
+        const userToken=signUser(email)
+        req.session.token=userToken
+        res.status(200).send({
+            token:userToken,
+            checkS:req.session.token
+        })
     }
 }
 
