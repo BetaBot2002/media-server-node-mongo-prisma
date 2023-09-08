@@ -1,16 +1,7 @@
-import { getDecodedData,verifyToken } from "./apikeyauth.jwt.js"
+import { verifyToken } from "../Helpers/jwt.auth.helper.js"
 
-const notLoggedIn = (req, res, next) => {
-    if (req.session.token) {
-        res.status(200).send({
-            message: `ALREADY LOGGED IN`
-        })
-    } else {
-        next()
-    }
-}
 
-const loggedIn = (req, res, next) => {
+const verifyUserToken = (req, res, next) => {
     const bearer=req.headers['authorization']
     if(!bearer){
         res.status(404).send({
@@ -34,6 +25,5 @@ const loggedIn = (req, res, next) => {
 }
 
 export {
-    loggedIn,
-    notLoggedIn
+    verifyUserToken
 }
