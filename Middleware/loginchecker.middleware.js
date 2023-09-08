@@ -1,4 +1,4 @@
-import { getDecodedData } from "./apikeyauth.jwt.js"
+import { getDecodedData,verifyToken } from "./apikeyauth.jwt.js"
 
 const notLoggedIn = (req, res, next) => {
     if (req.session.token) {
@@ -11,15 +11,25 @@ const notLoggedIn = (req, res, next) => {
 }
 
 const loggedIn = (req, res, next) => {
-    if (req.session.token) {
-        const email=getDecodedData(req.session.token).email
-        req.email=email
-        console.log(req.email)
-        next()
-    } else {
-        res.status(200).send({
-            message: `NOT LOGGED IN`
+    const bearer=req.headers['authorization']
+    if(!bearer){
+        res.status(404).send({
+            message:`TOKEN NOT FOUND`
         })
+    }else{
+        const token=bearer.split(' ')[1]
+        const payload=verifyToken(token)
+        if(payload.message){
+            res.status(200).send({
+                message: payload.message
+            })
+        }else{
+            const {email}=payload
+            req.email=email
+            console.log(req.email)
+            next()
+        }
+
     }
 }
 

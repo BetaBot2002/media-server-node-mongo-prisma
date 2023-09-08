@@ -9,7 +9,18 @@ const getDecodedData=(token)=>{
     return jwt.decode(token)
 }
 
+const verifyToken=(token)=>{
+    try {
+        const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY)
+        return decoded
+    } catch (error) {
+        return {message:`INVALID TOKEN`}
+    }
+    
+}
+
 export {
     signUser,
-    getDecodedData
+    getDecodedData,
+    verifyToken
 }

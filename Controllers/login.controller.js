@@ -9,7 +9,7 @@ const login=async (req,res)=>{
         })
     }else{
         const userToken=signUser(email)
-        req.session.token=userToken
+        // req.session.token=userToken
         res.status(200).send({
             token:userToken
         })
