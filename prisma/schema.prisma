@@ -32,6 +32,6 @@ model File {
 
 model BlacklistTokens{
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  token      String
+  token      String      @unique
 }
 
