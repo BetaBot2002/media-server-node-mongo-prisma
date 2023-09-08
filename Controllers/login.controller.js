@@ -11,8 +11,7 @@ const login=async (req,res)=>{
         const userToken=signUser(email)
         req.session.token=userToken
         res.status(200).send({
-            token:userToken,
-            checkS:req.session.token
+            token:userToken
         })
     }
 }
