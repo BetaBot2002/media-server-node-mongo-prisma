@@ -10,12 +10,13 @@ const deleteToken=async (token)=>{
 }
 
 const tokenExists=async (token)=>{
-    const token=await prisma.blacklistTokens.findUnique({
+    const blacklistedToken=await prisma.blacklistTokens.findUnique({
         where:{
             token:token
         }
     })
-    return !token
+    console.log(blacklistedToken)
+    return !(blacklistedToken==null)
 }
 
 export {
