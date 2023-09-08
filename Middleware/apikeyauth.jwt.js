@@ -5,6 +5,11 @@ const signUser=(email)=>{
     return token
 }
 
+const getDecodedData=(token)=>{
+    return jwt.decode(token)
+}
+
 export {
-    signUser
+    signUser,
+    getDecodedData
 }
