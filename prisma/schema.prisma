@@ -16,7 +16,6 @@ model User {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId// Use ObjectId as the primary key
   email      String      @unique
   password   String
-  signInToken String?
   files      File[]      // Define a one-to-many relationship with files
 }
 
@@ -29,5 +28,10 @@ model File {
   createdAt  DateTime    @default(now())
   userEmail  String      @map("_userEmail") // Map the foreign key to the "email" field in User
   user       User        @relation(fields: [userEmail], references: [email]) // Define a many-to-one relationship with users
+}
+
+model BlacklistTokens{
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  token      String
 }
 
