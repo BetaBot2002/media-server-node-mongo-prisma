@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
         const fileExtension = file.originalname.split('.').pop();
         // Construct the filename with the file extension
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + fileExtension);
+        cb(null, file.mimetype.split('/')[0] + '-' + uniqueSuffix + '.' + fileExtension);
     }
 })
 

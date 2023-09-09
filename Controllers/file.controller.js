@@ -1,7 +1,7 @@
 import { generateUniqueKey } from "../Helpers/uniqueId.helper.js"
-import { insertOneFile } from "../Database/file.db.queries.js"
+import { insertOneFile,findSingleFile } from "../Database/file.db.queries.js"
 
-const uploadImage = async (req, res) => {
+const uploadFile = async (req, res) => {
     console.log(req.file)
     const email = req.email
     const file = {
@@ -16,6 +16,17 @@ const uploadImage = async (req, res) => {
 
 }
 
+
+const getFile=async (req,res)=>{
+    const email = req.email
+    const {fileid}=req.params
+    const file=await findSingleFile(email,fileid)
+    console.log(file)
+    res.status(200).send(file)
+
+}
+
 export {
-    uploadImage
+    uploadFile,
+    getFile
 }

@@ -1,11 +1,7 @@
-import bcrypt from 'bcryptjs';
-
+import crypto from 'crypto';
 
 const generateUniqueKey = (value) => {
-    const saltRounds = 10;
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hash = bcrypt.hashSync(value, salt);
-    return hash
+    return crypto.randomBytes(16).toString('hex')
 }
 
 export {
