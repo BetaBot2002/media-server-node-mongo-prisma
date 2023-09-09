@@ -6,8 +6,16 @@ const addTokenToRequest=(req,res,next)=>{
         })
     }else{
         const token = bearer.split(' ')[1]
-        req.token=token
-        next()
+        console.log(token)
+        if (!token || token==='') {
+            res.status(404).send({
+                message: `TOKEN NOT FOUND`
+            })
+        }else{
+            req.token=token
+            next()
+        }
+
     }
 }
 
