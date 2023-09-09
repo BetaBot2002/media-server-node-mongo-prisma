@@ -3,11 +3,12 @@ import { insertOneFile,findSingleFile } from "../Database/file.db.queries.js"
 
 const uploadFile = async (req, res) => {
     console.log(req.file)
-    const email = req.email
+    const {email,fileURL} = req
     const file = {
         fileid: generateUniqueKey(req.file.filename),
         filename: req.file.filename,
         filetype: req.file.mimetype,
+        fileurl:fileURL,
         userEmail: email
     }
 
