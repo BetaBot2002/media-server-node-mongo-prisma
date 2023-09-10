@@ -1,21 +1,34 @@
 import { findSingleUser } from "../Database/user.db.queries.js"
-import { signUser } from "../Helpers/jwt.auth.helper.js"
-const login=async (req,res)=>{
-    const {email,password} = req.body
-    const user=await findSingleUser(email,password)
-    if(!user){
+import { getNewAccsessToken, signUser } from "../Helpers/jwt.auth.helper.js"
+const login = async (req, res) => {
+    const { email, password } = req.body
+    const user = await findSingleUser(email, password)
+    if (!user) {
         res.status(404).send({
-            message:`NOT FOUND`
+            message: `NOT FOUND`
         })
-    }else{
-        const userToken=signUser(email)
+    } else {
+        const { accsessToken, refreshToken } = signUser(email)
         // req.session.token=userToken
         res.status(200).send({
-            token:userToken
+            accsessToken: accsessToken,
+            refreshToken: refreshToken
         })
     }
 }
 
+const refresh = async (req, res) => {
+    const { email } = req
+    const newAccessToken = getNewAccsessToken(email)
+    // req.session.token=userToken
+    res.status(200).send({
+        accsessToken: newAccessToken
+    })
+}
+
+
+
 export {
-    login
+    login,
+    refresh
 }
