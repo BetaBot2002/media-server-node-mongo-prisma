@@ -27,7 +27,7 @@ app.use(session({
     resave:false
 }))
 
-app.use(express.static(__dirname+"/Public"))
+app.use(express.static(__dirname+process.env.PUBLIC_FOLDER))
 
 app.use('/file',fileRouter)
 app.use('/user',userRouter)
