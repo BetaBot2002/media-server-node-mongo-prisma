@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
 
+const time=`15m`
+
 const signUser=(email)=>{
-    const token=jwt.sign({email:email},process.env.JWT_SECRET_KEY,{expiresIn:'30s'})
+    const token=jwt.sign({email:email},process.env.JWT_SECRET_KEY,{expiresIn:time})
     const refreshToken=jwt.sign({email:email},process.env.REFRESH_JWT_SECRET_KEY)
     return {
         accsessToken:token,
@@ -10,7 +12,7 @@ const signUser=(email)=>{
 }
 
 const getNewAccsessToken=(email)=>{
-    const token=jwt.sign({email:email},process.env.JWT_SECRET_KEY,{expiresIn:'30s'})
+    const token=jwt.sign({email:email},process.env.JWT_SECRET_KEY,{expiresIn:time})
     return token
 }
 
