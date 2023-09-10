@@ -10,7 +10,8 @@ const uploadFile = async (req, res) => {
         filename: req.file.filename,
         filetype: req.file.mimetype,
         fileurl:fileURL,
-        originalname:req.file.originalname,
+        originalname:req.file.originalname.split('.')[0],
+        extension:req.file.originalname.split('.').pop(),
         userEmail: email
     }
 

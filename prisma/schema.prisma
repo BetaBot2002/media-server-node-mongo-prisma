@@ -28,6 +28,7 @@ model File {
   filetype     String
   fileurl      String
   originalname String
+  extension    String
   createdAt    DateTime @default(now())
   userEmail    String // Map the foreign key to the "email" field in User
   user         User     @relation(fields: [userEmail], references: [email]) // Define a many-to-one relationship with users
