@@ -16,7 +16,21 @@ const findSingleFile=async (userEmail,fileid)=>{
     })
 }
 
+const updateSingleFile=async (fileid,email,newname)=>{
+    console.log(`hello:`,fileid,email,newname)
+    return await prisma.file.update({
+        where:{
+            fileid:fileid,
+            userEmail:email
+        },
+        data:{
+            originalname:newname
+        }
+    })
+}
+
 export {
     insertOneFile,
-    findSingleFile
+    findSingleFile,
+    updateSingleFile
 }

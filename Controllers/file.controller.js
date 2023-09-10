@@ -1,5 +1,5 @@
 import { generateUniqueKey } from "../Helpers/uniqueId.helper.js"
-import { insertOneFile,findSingleFile } from "../Database/file.db.queries.js"
+import { insertOneFile,findSingleFile,updateSingleFile } from "../Database/file.db.queries.js"
 
 const uploadFile = async (req, res) => {
     console.log(req.file)
@@ -24,11 +24,35 @@ const getFile=async (req,res)=>{
     const {fileid}=req.params
     const file=await findSingleFile(email,fileid)
     console.log(file)
-    res.status(200).send(file)
+    if(!file){
+        res.status(404).send({
+            message:`FILE NOT FOUND`
+        })
+    }else{
+        res.status(200).send(file)
+    }
+}
+
+const updateFile=async (req,res)=>{
+    const {email}=req
+    const {fileid,newname}=req.body
+    console.log(fileid,email,newname)
+    try {
+        const file=await updateSingleFile(fileid,email,newname)
+        res.status(200).send({
+            message:`FILE UPDATED`,
+            file:file
+        })
+    } catch (error) {
+        res.status(404).send({
+            message:`FILE NOT FOUND`,
+        })
+    }
 
 }
 
 export {
     uploadFile,
-    getFile
+    getFile,
+    updateFile
 }
