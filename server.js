@@ -1,8 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config()
 
-import session from "express-session"; 
-
 import express from "express";
 const app=express();
 
@@ -20,12 +18,6 @@ const PORT=process.env.PORT || 4000
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized:true,
-    resave:false
-}))
 
 app.use(express.static(__dirname+process.env.PUBLIC_FOLDER))
 
