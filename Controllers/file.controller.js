@@ -1,5 +1,6 @@
 import { generateUniqueKey } from "../Helpers/uniqueId.helper.js"
-import { insertOneFile,findSingleFile,updateSingleFile } from "../Database/file.db.queries.js"
+import { insertOneFile,findSingleFile,updateSingleFile, deleteSingleFile } from "../Database/file.db.queries.js"
+import { deleteFileFromSystem } from "../Helpers/filesystem.helper.js"
 
 const uploadFile = async (req, res) => {
     console.log(req.file)
@@ -51,8 +52,26 @@ const updateFile=async (req,res)=>{
 
 }
 
+const deleteFile=async (req,res)=>{
+    const {email}=req
+    const {fileid}=req.body
+    try {
+        const file=await deleteSingleFile(fileid,email)
+        deleteFileFromSystem(`./Public`+file.fileurl)
+        res.status(200).send({
+            message:`FILE DELETED`,
+            file:file
+        })
+    } catch (error) {
+        res.status(404).send({
+            message:`FILE NOT FOUND`,
+        })
+    }
+}
+
 export {
     uploadFile,
     getFile,
-    updateFile
+    updateFile,
+    deleteFile
 }

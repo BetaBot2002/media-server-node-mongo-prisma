@@ -1,6 +1,6 @@
 import { unlink } from 'fs/promises';
 
-const deleteFile = async (filePath) => {
+const deleteFileFromSystem = async (filePath) => {
   try {
     await unlink(filePath);
     console.log(`File ${filePath} has been deleted.`);
@@ -10,5 +10,5 @@ const deleteFile = async (filePath) => {
 };
 
 export {
-    deleteFile
+  deleteFileFromSystem
 }
