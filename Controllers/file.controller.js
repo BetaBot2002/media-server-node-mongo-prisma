@@ -1,5 +1,5 @@
 import { generateUniqueKey } from "../Helpers/uniqueId.helper.js"
-import { insertOneFile, findSingleFile, updateSingleFile, deleteSingleFile } from "../Database/file.db.queries.js"
+import { insertOneFile, findSingleFile, updateSingleFile, deleteSingleFile, findAllFiles } from "../Database/file.db.queries.js"
 import { deleteFileFromSystem } from "../Helpers/filesystem.helper.js"
 import fs from 'fs'
 
@@ -33,6 +33,19 @@ const getFile = async (req, res) => {
         })
     } else {
         res.status(200).send(file)
+    }
+}
+
+const getAllFiles = async (req, res) => {
+    const email = req.email
+    const files = await findAllFiles(email)
+    console.log(files)
+    if (!files || files.length===0) {
+        res.status(404).send({
+            message: `FILES NOT FOUND`
+        })
+    } else {
+        res.status(200).send(files)
     }
 }
 
@@ -98,6 +111,7 @@ const deleteFile = async (req, res) => {
 export {
     uploadFile,
     getFile,
+    getAllFiles,
     updateFile,
     deleteFile,
     getExactFile

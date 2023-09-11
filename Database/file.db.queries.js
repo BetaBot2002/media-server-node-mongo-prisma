@@ -16,6 +16,14 @@ const findSingleFile = async (userEmail, fileid) => {
     })
 }
 
+const findAllFiles = async (userEmail) => {
+    return await prisma.file.findMany({
+        where: {
+            userEmail: userEmail
+        }
+    })
+}
+
 const updateSingleFile = async (fileid, email, newname) => {
     console.log(`hello:`, fileid, email, newname)
     return await prisma.file.update({
@@ -41,6 +49,7 @@ const deleteSingleFile = async (fileid, email) => {
 export {
     insertOneFile,
     findSingleFile,
+    findAllFiles,
     updateSingleFile,
     deleteSingleFile
 }
