@@ -19,7 +19,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-app.use(express.static(__dirname+process.env.PUBLIC_FOLDER))
+// app.use(express.static(__dirname+process.env.PUBLIC_FOLDER))
 
 app.use('/file',fileRouter)
 app.use('/user',userRouter)
