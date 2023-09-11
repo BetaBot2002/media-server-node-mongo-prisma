@@ -49,7 +49,7 @@ const getAllFiles = async (req, res) => {
     }
 }
 
-const getExactFile = async (req, res) => {
+const getActualFile = async (req, res) => {
     const email = req.email
     const { fileid } = req.params
     const file = await findSingleFile(email, fileid)
@@ -114,5 +114,5 @@ export {
     getAllFiles,
     updateFile,
     deleteFile,
-    getExactFile
+    getActualFile
 }
