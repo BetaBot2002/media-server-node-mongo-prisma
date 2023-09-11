@@ -5,12 +5,14 @@ import fs from 'fs'
 
 const uploadFile = async (req, res) => {
     console.log(req.file)
-    const { email, fileURL } = req
+    const { email, filepath } = req
+    const uniqueFileId=generateUniqueKey(req.file.filename)
     const file = {
-        fileid: generateUniqueKey(req.file.filename),
+        fileid: uniqueFileId,
         filename: req.file.filename,
         filetype: req.file.mimetype,
-        fileurl: fileURL,
+        filepath: filepath,
+        fileurl:`/file/getfile/${uniqueFileId}`,
         originalname: req.file.originalname.split('.')[0],
         extension: req.file.originalname.split('.').pop(),
         userEmail: email
@@ -59,7 +61,7 @@ const getActualFile = async (req, res) => {
             message: `FILE NOT FOUND`
         })
     } else {
-        const filepath = `.${process.env.PUBLIC_FOLDER}${file.fileurl}`
+        const filepath = `.${process.env.PUBLIC_FOLDER}${file.filepath}`
         if (fs.existsSync(filepath)) {
             const contentType = file.filetype
             res.setHeader('Content-Type', contentType)

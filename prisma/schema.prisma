@@ -26,6 +26,7 @@ model File {
   fileid       String   @unique
   filename     String
   filetype     String
+  filepath     String
   fileurl      String
   originalname String
   extension    String
