@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const time=15*50
+const time=15
 
 const signUser=(email)=>{
     const token=jwt.sign({email:email},process.env.JWT_SECRET_KEY,{expiresIn:time})
