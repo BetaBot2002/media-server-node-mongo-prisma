@@ -98,7 +98,7 @@ const deleteFile = async (req, res) => {
     const { fileid } = req.body
     try {
         const file = await deleteSingleFile(fileid, email)
-        deleteFileFromSystem(`.${process.env.PUBLIC_FOLDER}` + file.fileurl)
+        deleteFileFromSystem(`.${process.env.PUBLIC_FOLDER}` + file.filepath)
         res.status(200).send({
             message: `FILE DELETED`,
             file: file
